@@ -10,8 +10,9 @@ import scala.concurrent.duration._
 trait BlazegraphDocker extends DockerKitWithTimeouts {
 
   val blazegraphContainer: DockerContainer = DockerContainer("bluebrain/blazegraph-nexus:2.1.5")
-    .withEnv(
-      "JAVA_OPTS=-Djava.awt.headless=true -XX:MaxDirectMemorySize=64m -Xmx256m -XX:+UseG1GC"
+  val blazegraphContainer: DockerContainer = DockerContainer("cr.gitlab.switch.ch/connectome/development-mvp/nexus-docker/blazegraph:2.1.6-RC")
+      .withEnv(
+      "JAVA_OPTS=-Djava.awt.headless=true -XX:MaxDirectMemorySize=64m -Xmx256m"
     )
     .withPorts(DefaultPort -> Some(DefaultPort))
     .withReadyChecker(

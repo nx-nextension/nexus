@@ -13,7 +13,7 @@ import scala.util.Try
 trait PostgresDocker extends DockerKitWithTimeouts {
   import scala.concurrent.duration._
 
-  val postgresContainer: DockerContainer = DockerContainer("library/postgres:12.2")
+  val postgresContainer: DockerContainer = DockerContainer("library/postgres:12.9")
     .withPorts((PostgresAdvertisedPort, Some(PostgresExposedPort)))
     .withEnv(s"POSTGRES_USER=$PostgresUser", s"POSTGRES_PASSWORD=$PostgresPassword")
     .withReadyChecker(

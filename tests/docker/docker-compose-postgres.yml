@@ -1,12 +1,13 @@
-version: "3.3"
+version: "3.9"
+
 services:
   delta:
     depends_on:
       - keycloak
       - elasticsearch
       - postgres
-      - storage-service
-      - minio
+      # - storage-service
+      # - minio
     environment:
       DELTA_PLUGINS: "/opt/docker/plugins/"
       DELTA_EXTERNAL_CONF: "/config/delta-postgres.conf"
@@ -74,7 +75,7 @@ services:
   #          memory: 768M
 
   keycloak:
-    image: jboss/keycloak:15.0.0
+    image: cr.gitlab.switch.ch/connectome/development-mvp/nexus-docker/keycloak:16.1.1
     environment:
       JAVA_OPTS: "-Xms64m -Xmx256m"
       KEYCLOAK_USER: "admin"
@@ -89,7 +90,7 @@ services:
           memory: 384M
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
     environment:
       ES_JAVA_OPTS: "-Xmx256m"
       discovery.type: "single-node"
@@ -108,9 +109,9 @@ services:
           memory: 384M
 
   blazegraph:
-    image: bluebrain/blazegraph-nexus:2.1.5
+    image: cr.gitlab.switch.ch/connectome/development-mvp/nexus-docker/blazegraph:2.1.6-RC
     environment:
-      JAVA_OPTS: "-Djava.awt.headless=true -XX:MaxDirectMemorySize=64m -Xmx256m -XX:+UseG1GC"
+      JAVA_OPTS: "-Djava.awt.headless=true -XX:MaxDirectMemorySize=300m -Xms1g -Xmx1g"
     ports:
       - 9999:9999
     deploy:
@@ -119,58 +120,64 @@ services:
           memory: 384M
 
   postgres:
-    image: library/postgres:12.2
+    image: library/postgres:12.9
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-
-  storage-service:
-    image: bluebrain/nexus-storage:latest
-    entrypoint: [ "./bin/storage",
-                  "-Xmx192m",
-                  "-Dapp.instance.interface=0.0.0.0",
-                  "-Dapp.http.interface=0.0.0.0",
-                  "-Dapp.http.public-uri=http://storage.tests.nexus.ocp.bbp.epfl.ch",
-                  "-Dapp.subject.anonymous=false",
-                  "-Dapp.subject.realm=internal",
-                  "-Dapp.subject.name=service-account-delta",
-                  "-Dapp.storage.root-volume=/data",
-                  "-Dapp.storage.protected-directory=protected",
-                  "-Dapp.storage.fixer-enabled=false",
-                  "-Dapp.delta.public-iri=https://test.nexus.bbp.epfl.ch",
-                  "-Dapp.delta.internal-iri=http://delta:8080",
-                  "-Dkamon.modules.prometheus-reporter.enabled=false",
-                  "-Dkamon.modules.jaeger.enabled=false" ]
-    ports:
-      - 8090:8080
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - /tmp/storage:/data
-    deploy:
-      resources:
-        limits:
-          memory: 256M
+      - nexus-postgres: /var/lib/postgresql/data
 
-  minio:
-    image: minio/minio:RELEASE.2021-07-30T00-02-00Z
-    command: server /data
-    environment:
-      MINIO_ACCESS_KEY: "MY_ACCESS_KEY"
-      MINIO_SECRET_KEY: "CHUTCHUT"
-      MINIO_DOMAIN: "delta.bbp"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    networks:
-      default:
-        # We add this alias due to the deprecation of path-styles on S3:
-        # https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
-        aliases:
-          - delta.bbp
-          - nexustest.delta.bbp
-          - foobar.delta.bbp
-    ports:
-      - 9000:9000
-    volumes:
-      - /tmp/minio:/data
+    # storage-service:
+    #   image: bluebrain/nexus-storage:latest<localBuild>
+    #   entrypoint: [ "./bin/storage",
+    #                 "-Xmx192m",
+    #                 "-Dapp.instance.interface=0.0.0.0",
+    #                 "-Dapp.http.interface=0.0.0.0",
+    #                 "-Dapp.http.public-uri=http://storage.tests.nexus.ocp.bbp.epfl.ch",
+    #                 "-Dapp.subject.anonymous=false",
+    #                 "-Dapp.subject.realm=internal",
+    #                 "-Dapp.subject.name=service-account-delta",
+    #                 "-Dapp.storage.root-volume=/data",
+    #                 "-Dapp.storage.protected-directory=protected",
+    #                 "-Dapp.storage.fixer-enabled=false",
+    #                 "-Dapp.delta.public-iri=https://test.nexus.bbp.epfl.ch",
+    #                 "-Dapp.delta.internal-iri=http://delta:8080",
+    #                 "-Dkamon.modules.prometheus-reporter.enabled=false",
+    #                 "-Dkamon.modules.jaeger.enabled=false" ]
+    #   ports:
+    #     - 8090:8080
+    #   volumes:
+    #     - /tmp/storage:/data
+    #   deploy:
+    #     resources:
+    #       limits:
+    #         memory: 256M
+
+    # minio:
+    #   image: minio/minio:RELEASE.2021-05-26T00-22-46Z<skipPull>
+    #   command: server /data
+    #   environment:
+    #     MINIO_ACCESS_KEY: "MY_ACCESS_KEY"
+    #     MINIO_SECRET_KEY: "CHUTCHUT"
+    #     MINIO_DOMAIN: "delta.bbp"
+    #   healthcheck:
+    #     test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+    #     interval: 30s
+    #     timeout: 20s
+    #     retries: 3
+    #   networks:
+    #     default:
+    #       # We add this alias due to the deprecation of path-styles on S3:
+    #       # https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
+    #       aliases:
+    #         - delta.bbp
+    #         - nexustest.delta.bbp
+    #         - foobar.delta.bbp
+    #   ports:
+    #     - 9000:9000
+    #   volumes:
+    #     - /tmp/minio:/data
+
+  volumes:
+    nexus-postgres:
