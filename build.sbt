@@ -12,50 +12,51 @@ scalafmt: {
 }
  */
 
-val scalacScapegoatVersion = "1.4.10"
-val scalaCompilerVersion   = "2.13.6"
+val scalacScapegoatVersion = "1.4.13"
+val scalaCompilerVersion   = "2.13.8"
 
-val akkaHttpVersion                 = "10.2.6"
-val akkaHttpCirceVersion            = "1.38.2"
-val akkaCorsVersion                 = "1.1.2"
+val akkaHttpVersion                 = "10.2.9"
+val akkaHttpCirceVersion            = "1.39.2"
+val akkaCorsVersion                 = "1.1.3"
 val akkaPersistenceCassandraVersion = "1.0.5"
 val akkaPersistenceJdbcVersion      = "5.0.4"
-val akkaVersion                     = "2.6.17"
-val alpakkaVersion                  = "3.0.3"
+val akkaVersion                     = "2.6.19"
+val alpakkaVersion                  = "3.0.4"
 val apacheCompressVersion           = "1.21"
-val awsSdkVersion                   = "2.17.71"
+val awsSdkVersion                   = "2.17.184"
 val byteBuddyAgentVersion           = "1.10.17"
 val betterMonadicForVersion         = "0.3.1"
-val caffeineVersion                 = "3.0.4"
+val caffeineVersion                 = "3.1.0"
 val catsEffectVersion               = "2.5.4"
 val catsRetryVersion                = "2.1.1"
-val catsVersion                     = "2.6.1"
+val catsVersion                     = "2.7.0"
 val circeVersion                    = "0.14.1"
-val classgraphVersion               = "4.8.129"
-val distageVersion                  = "1.0.8"
-val dockerTestKitVersion            = "0.9.9"
+val classgraphVersion               = "4.8.146"
+val distageVersion                  = "1.0.10"
 val doobieVersion                   = "0.13.4"
-val fs2Version                      = "2.5.10"
+val fs2Version                      = "2.5.11"
+val googleAuthClientVersion         = "1.33.3"
 val h2Version                       = "1.4.200"
 val jenaVersion                     = "4.2.0"
-val jsonldjavaVersion               = "0.13.3"
-val kamonVersion                    = "2.3.1"
+val jsonldjavaVersion               = "0.13.4"
+val kamonVersion                    = "2.5.1"
 val kanelaAgentVersion              = "1.0.13"
 val kindProjectorVersion            = "0.13.2"
-val kryoVersion                     = "2.3.0"
-val logbackVersion                  = "1.2.6"
+val kryoVersion                     = "2.4.3"
+val logbackVersion                  = "1.2.11"
 val magnoliaVersion                 = "0.17.0"
-val mockitoVersion                  = "1.16.46"
+val mockitoVersion                  = "1.17.5"
 val monixVersion                    = "3.4.0"
 val monixBioVersion                 = "1.2.0"
-val nimbusJoseJwtVersion            = "9.15.2"
-val pureconfigVersion               = "0.17.0"
+val nimbusJoseJwtVersion            = "9.22"
+val pureconfigVersion               = "0.17.1"
 val scalaLoggingVersion             = "3.9.4"
 val scalateVersion                  = "1.9.6" // scala-parser-combinators_2.13:2.0.0 ... is selected over 1.1.2
 val scalaTestVersion                = "3.2.10"
 val slickVersion                    = "3.3.3"
 val streamzVersion                  = "0.12"
 val topBraidVersion                 = "1.3.2" // 1.4.1 fails to validate some test schemas
+val testContainersVersion           = "1.17.1"
 val uuidGeneratorVersion            = "4.0.1"
 
 lazy val akkaActorTyped           = "com.typesafe.akka" %% "akka-actor-typed"            % akkaVersion
@@ -81,57 +82,57 @@ lazy val akkaPersistenceJdbc = Seq(
   "com.typesafe.slick" %% "slick-hikaricp"        % slickVersion
 )
 
-lazy val akkaPersistenceQuery = "com.typesafe.akka"            %% "akka-persistence-query"          % akkaVersion
-lazy val akkaSlf4j            = "com.typesafe.akka"            %% "akka-slf4j"                      % akkaVersion
-lazy val akkaStream           = "com.typesafe.akka"            %% "akka-stream"                     % akkaVersion
-lazy val akkaTestKit          = "com.typesafe.akka"            %% "akka-testkit"                    % akkaVersion
-lazy val akkaTestKitTyped     = "com.typesafe.akka"            %% "akka-actor-testkit-typed"        % akkaVersion
-lazy val alpakkaFile          = "com.lightbend.akka"           %% "akka-stream-alpakka-file"        % alpakkaVersion
-lazy val alpakkaSse           = "com.lightbend.akka"           %% "akka-stream-alpakka-sse"         % alpakkaVersion
-lazy val alpakkaS3            = "com.lightbend.akka"           %% "akka-stream-alpakka-s3"          % alpakkaVersion
-lazy val apacheCompress       = "org.apache.commons"            % "commons-compress"                % apacheCompressVersion
-lazy val awsSdk               = "software.amazon.awssdk"        % "s3"                              % awsSdkVersion
-lazy val betterMonadicFor     = "com.olegpy"                   %% "better-monadic-for"              % betterMonadicForVersion
-lazy val byteBuddyAgent       = "net.bytebuddy"                 % "byte-buddy-agent"                % byteBuddyAgentVersion
-lazy val caffeine             = "com.github.ben-manes.caffeine" % "caffeine"                        % caffeineVersion
-lazy val catsCore             = "org.typelevel"                %% "cats-core"                       % catsVersion
-lazy val catsEffect           = "org.typelevel"                %% "cats-effect"                     % catsEffectVersion
-lazy val catsEffectLaws       = "org.typelevel"                %% "cats-effect-laws"                % catsEffectVersion
-lazy val catsRetry            = "com.github.cb372"             %% "cats-retry"                      % catsRetryVersion
-lazy val circeCore            = "io.circe"                     %% "circe-core"                      % circeVersion
-lazy val circeGeneric         = "io.circe"                     %% "circe-generic"                   % circeVersion
-lazy val circeGenericExtras   = "io.circe"                     %% "circe-generic-extras"            % circeVersion
-lazy val circeLiteral         = "io.circe"                     %% "circe-literal"                   % circeVersion
-lazy val circeOptics          = "io.circe"                     %% "circe-optics"                    % circeVersion
-lazy val circeParser          = "io.circe"                     %% "circe-parser"                    % circeVersion
-lazy val classgraph           = "io.github.classgraph"          % "classgraph"                      % classgraphVersion
-lazy val distageCore          = "io.7mind.izumi"               %% "distage-core"                    % distageVersion
-lazy val doobiePostgres       = "org.tpolecat"                 %% "doobie-postgres"                 % doobieVersion
-lazy val dockerTestKit        = "com.whisk"                    %% "docker-testkit-scalatest"        % dockerTestKitVersion
-lazy val dockerTestKitImpl    = "com.whisk"                    %% "docker-testkit-impl-docker-java" % dockerTestKitVersion
-lazy val fs2                  = "co.fs2"                       %% "fs2-core"                        % fs2Version
-lazy val fs2io                = "co.fs2"                       %% "fs2-io"                          % fs2Version
-lazy val h2                   = "com.h2database"                % "h2"                              % h2Version
-lazy val jenaArq              = "org.apache.jena"               % "jena-arq"                        % jenaVersion
-lazy val jsonldjava           = "com.github.jsonld-java"        % "jsonld-java"                     % jsonldjavaVersion
-lazy val kamonAkkaHttp        = "io.kamon"                     %% "kamon-akka-http"                 % kamonVersion
-lazy val kamonCore            = "io.kamon"                     %% "kamon-core"                      % kamonVersion
-lazy val kanelaAgent          = "io.kamon"                      % "kanela-agent"                    % kanelaAgentVersion
-lazy val kindProjector        = "org.typelevel"                %% "kind-projector"                  % kindProjectorVersion cross CrossVersion.full
-lazy val kryo                 = "io.altoo"                     %% "akka-kryo-serialization"         % kryoVersion
-lazy val logback              = "ch.qos.logback"                % "logback-classic"                 % logbackVersion
-lazy val magnolia             = "com.propensive"               %% "magnolia"                        % magnoliaVersion
-lazy val mockito              = "org.mockito"                  %% "mockito-scala"                   % mockitoVersion
-lazy val monixBio             = "io.monix"                     %% "monix-bio"                       % monixBioVersion
-lazy val monixEval            = "io.monix"                     %% "monix-eval"                      % monixVersion
-lazy val nimbusJoseJwt        = "com.nimbusds"                  % "nimbus-jose-jwt"                 % nimbusJoseJwtVersion
-lazy val pureconfig           = "com.github.pureconfig"        %% "pureconfig"                      % pureconfigVersion
-lazy val scalaLogging         = "com.typesafe.scala-logging"   %% "scala-logging"                   % scalaLoggingVersion
-lazy val scalate              = "org.scalatra.scalate"         %% "scalate-core"                    % scalateVersion
-lazy val scalaTest            = "org.scalatest"                %% "scalatest"                       % scalaTestVersion
-lazy val streamz              = "com.github.krasserm"          %% "streamz-converter"               % streamzVersion
-lazy val topBraidShacl        = "org.topbraid"                  % "shacl"                           % topBraidVersion
-lazy val uuidGenerator        = "com.fasterxml.uuid"            % "java-uuid-generator"             % uuidGeneratorVersion
+lazy val akkaPersistenceQuery = "com.typesafe.akka"            %% "akka-persistence-query"   % akkaVersion
+lazy val akkaSlf4j            = "com.typesafe.akka"            %% "akka-slf4j"               % akkaVersion
+lazy val akkaStream           = "com.typesafe.akka"            %% "akka-stream"              % akkaVersion
+lazy val akkaTestKit          = "com.typesafe.akka"            %% "akka-testkit"             % akkaVersion
+lazy val akkaTestKitTyped     = "com.typesafe.akka"            %% "akka-actor-testkit-typed" % akkaVersion
+lazy val alpakkaFile          = "com.lightbend.akka"           %% "akka-stream-alpakka-file" % alpakkaVersion
+lazy val alpakkaSse           = "com.lightbend.akka"           %% "akka-stream-alpakka-sse"  % alpakkaVersion
+lazy val alpakkaS3            = "com.lightbend.akka"           %% "akka-stream-alpakka-s3"   % alpakkaVersion
+lazy val apacheCompress       = "org.apache.commons"            % "commons-compress"         % apacheCompressVersion
+lazy val awsSdk               = "software.amazon.awssdk"        % "s3"                       % awsSdkVersion
+lazy val betterMonadicFor     = "com.olegpy"                   %% "better-monadic-for"       % betterMonadicForVersion
+lazy val byteBuddyAgent       = "net.bytebuddy"                 % "byte-buddy-agent"         % byteBuddyAgentVersion
+lazy val caffeine             = "com.github.ben-manes.caffeine" % "caffeine"                 % caffeineVersion
+lazy val catsCore             = "org.typelevel"                %% "cats-core"                % catsVersion
+lazy val catsEffect           = "org.typelevel"                %% "cats-effect"              % catsEffectVersion
+lazy val catsEffectLaws       = "org.typelevel"                %% "cats-effect-laws"         % catsEffectVersion
+lazy val catsRetry            = "com.github.cb372"             %% "cats-retry"               % catsRetryVersion
+lazy val circeCore            = "io.circe"                     %% "circe-core"               % circeVersion
+lazy val circeGeneric         = "io.circe"                     %% "circe-generic"            % circeVersion
+lazy val circeGenericExtras   = "io.circe"                     %% "circe-generic-extras"     % circeVersion
+lazy val circeLiteral         = "io.circe"                     %% "circe-literal"            % circeVersion
+lazy val circeOptics          = "io.circe"                     %% "circe-optics"             % circeVersion
+lazy val circeParser          = "io.circe"                     %% "circe-parser"             % circeVersion
+lazy val classgraph           = "io.github.classgraph"          % "classgraph"               % classgraphVersion
+lazy val distageCore          = "io.7mind.izumi"               %% "distage-core"             % distageVersion
+lazy val doobiePostgres       = "org.tpolecat"                 %% "doobie-postgres"          % doobieVersion
+lazy val fs2                  = "co.fs2"                       %% "fs2-core"                 % fs2Version
+lazy val fs2io                = "co.fs2"                       %% "fs2-io"                   % fs2Version
+lazy val googleAuthClient     = "com.google.oauth-client"       % "google-oauth-client"      % googleAuthClientVersion
+lazy val h2                   = "com.h2database"                % "h2"                       % h2Version
+lazy val jenaArq              = "org.apache.jena"               % "jena-arq"                 % jenaVersion
+lazy val jsonldjava           = "com.github.jsonld-java"        % "jsonld-java"              % jsonldjavaVersion
+lazy val kamonAkkaHttp        = "io.kamon"                     %% "kamon-akka-http"          % kamonVersion
+lazy val kamonCore            = "io.kamon"                     %% "kamon-core"               % kamonVersion
+lazy val kanelaAgent          = "io.kamon"                      % "kanela-agent"             % kanelaAgentVersion
+lazy val kindProjector        = "org.typelevel"                %% "kind-projector"           % kindProjectorVersion cross CrossVersion.full
+lazy val kryo                 = "io.altoo"                     %% "akka-kryo-serialization"  % kryoVersion
+lazy val logback              = "ch.qos.logback"                % "logback-classic"          % logbackVersion
+lazy val magnolia             = "com.propensive"               %% "magnolia"                 % magnoliaVersion
+lazy val mockito              = "org.mockito"                  %% "mockito-scala"            % mockitoVersion
+lazy val monixBio             = "io.monix"                     %% "monix-bio"                % monixBioVersion
+lazy val monixEval            = "io.monix"                     %% "monix-eval"               % monixVersion
+lazy val nimbusJoseJwt        = "com.nimbusds"                  % "nimbus-jose-jwt"          % nimbusJoseJwtVersion
+lazy val pureconfig           = "com.github.pureconfig"        %% "pureconfig"               % pureconfigVersion
+lazy val scalaLogging         = "com.typesafe.scala-logging"   %% "scala-logging"            % scalaLoggingVersion
+lazy val scalate              = "org.scalatra.scalate"         %% "scalate-core"             % scalateVersion
+lazy val scalaTest            = "org.scalatest"                %% "scalatest"                % scalaTestVersion
+lazy val streamz              = "com.github.krasserm"          %% "streamz-converter"        % streamzVersion
+lazy val topBraidShacl        = "org.topbraid"                  % "shacl"                    % topBraidVersion
+lazy val testContainers       = "org.testcontainers"            % "testcontainers"           % testContainersVersion
+lazy val uuidGenerator        = "com.fasterxml.uuid"            % "java-uuid-generator"      % uuidGeneratorVersion
 
 val javaSpecificationVersion = SettingKey[String](
   "java-specification-version",
@@ -235,15 +236,15 @@ lazy val testkit = project
   .settings(shared, compilation, coverage, release, assertJavaVersion)
   .settings(
     javaSpecificationVersion := "1.8",
+    coverageMinimumStmtTotal := 0,
     libraryDependencies     ++= Seq(
       akkaActorTyped, // Needed to create Uri
       akkaHttpCore,
       catsRetry,
-      dockerTestKit,
-      dockerTestKitImpl,
       doobiePostgres,
       monixBio,
-      scalaTest
+      scalaTest,
+      testContainers
     ),
     addCompilerPlugin(kindProjector)
   )
@@ -257,8 +258,8 @@ lazy val sourcing = project
   )
   .settings(shared, compilation, assertJavaVersion, coverage, release)
   .settings(
-    coverageMinimum      := 64,
-    libraryDependencies ++= Seq(
+    coverageMinimumStmtTotal := 64,
+    libraryDependencies     ++= Seq(
       akkaActorTyped,
       akkaClusterTyped,
       akkaClusterShardingTyped,
@@ -281,7 +282,7 @@ lazy val sourcing = project
       catsEffectLaws         % Test,
       logback                % Test
     ) ++ akkaPersistenceJdbc,
-    Test / fork          := true
+    Test / fork              := true
   )
 
 lazy val rdf = project
@@ -441,6 +442,7 @@ lazy val app = project
       val compositeViewsFile  = (compositeViewsPlugin / assembly).value
       val searchFile          = (searchPlugin / assembly).value
       val projectDeletionFile = (projectDeletionPlugin / assembly).value
+      val jiraFile            = (jiraPlugin / assembly).value
       val pluginsTarget       = target.value / "plugins"
       IO.createDirectory(pluginsTarget)
       IO.copy(
@@ -452,7 +454,8 @@ lazy val app = project
           archiveFile         -> (pluginsTarget / archiveFile.getName),
           compositeViewsFile  -> (pluginsTarget / compositeViewsFile.getName),
           searchFile          -> (pluginsTarget / searchFile.getName),
-          projectDeletionFile -> (pluginsTarget / projectDeletionFile.getName)
+          projectDeletionFile -> (pluginsTarget / projectDeletionFile.getName),
+          jiraFile            -> (pluginsTarget / jiraFile.getName)
         )
       )
     },
@@ -478,6 +481,7 @@ lazy val app = project
       val compositeViewsFile  = (compositeViewsPlugin / assembly).value
       val searchFile          = (searchPlugin / assembly).value
       val projectDeletionFile = (projectDeletionPlugin / assembly).value
+      val jiraFile            = (jiraPlugin / assembly).value
       Seq(
         (esFile, "plugins/" + esFile.getName),
         (bgFile, "plugins/" + bgFile.getName),
@@ -486,6 +490,7 @@ lazy val app = project
         (archiveFile, "plugins/" + archiveFile.getName),
         (compositeViewsFile, "plugins/" + compositeViewsFile.getName),
         (searchFile, "plugins/" + searchFile.getName),
+        (jiraFile, "plugins/" + jiraFile.getName),
         (projectDeletionFile, "plugins/disabled/" + projectDeletionFile.getName)
       )
     }
@@ -499,7 +504,7 @@ lazy val testPlugin = project
     name                          := "delta-test-plugin",
     moduleName                    := "delta-test-plugin",
     assembly / assemblyOutputPath := target.value / "delta-test-plugin.jar",
-    assembly / assemblyOption     := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption     := (assembly / assemblyOption).value.withIncludeScala(false),
     Test / fork                   := true
   )
 
@@ -516,7 +521,7 @@ lazy val elasticsearchPlugin = project
     name                       := "delta-elasticsearch-plugin",
     moduleName                 := "delta-elasticsearch-plugin",
     assembly / assemblyJarName := "elasticsearch.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     libraryDependencies       ++= Seq(
       kamonAkkaHttp    % Provided,
       akkaTestKitTyped % Test,
@@ -528,7 +533,7 @@ lazy val elasticsearchPlugin = project
     buildInfoKeys              := Seq[BuildInfoKey](version),
     buildInfoPackage           := "ch.epfl.bluebrain.nexus.delta.plugins.elasticsearch",
     addCompilerPlugin(betterMonadicFor),
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-elasticsearch-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -557,7 +562,7 @@ lazy val blazegraphPlugin = project
     buildInfoPackage           := "ch.epfl.bluebrain.nexus.delta.plugins.blazegraph",
     addCompilerPlugin(betterMonadicFor),
     assembly / assemblyJarName := "blazegraph.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-blazegraph-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -593,7 +598,7 @@ lazy val compositeViewsPlugin = project
     addCompilerPlugin(betterMonadicFor),
     coverageFailOnMinimum      := false, // TODO: Remove this line when coverage increases
     assembly / assemblyJarName := "composite-views.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-composite-views-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -626,7 +631,7 @@ lazy val searchPlugin = project
     addCompilerPlugin(betterMonadicFor),
     coverageFailOnMinimum      := false, // TODO: Remove this line when coverage increases
     assembly / assemblyJarName := "search.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-search-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -662,7 +667,7 @@ lazy val storagePlugin = project
     addCompilerPlugin(kindProjector),
     coverageFailOnMinimum      := false, // TODO: Remove this line when coverage increases
     assembly / assemblyJarName := "storage.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-storage-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -693,7 +698,7 @@ lazy val archivePlugin = project
     buildInfoKeys              := Seq[BuildInfoKey](version),
     buildInfoPackage           := "ch.epfl.bluebrain.nexus.delta.plugins.archive",
     assembly / assemblyJarName := "archive.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-archive-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -718,7 +723,7 @@ lazy val projectDeletionPlugin = project
     buildInfoPackage           := "ch.epfl.bluebrain.nexus.delta.plugins.projectdeletion",
     addCompilerPlugin(betterMonadicFor),
     assembly / assemblyJarName := "project-deletion.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-project-deletion-plugin", "plugin"), assembly),
     Test / fork                := true
@@ -748,9 +753,36 @@ lazy val graphAnalyticsPlugin = project
     buildInfoKeys              := Seq[BuildInfoKey](version),
     buildInfoPackage           := "ch.epfl.bluebrain.nexus.delta.plugins.graph.analytics",
     assembly / assemblyJarName := "graph-analytics.jar",
-    assembly / assemblyOption  := (assembly / assemblyOption).value.copy(includeScala = false),
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
     assembly / test            := {},
     addArtifact(Artifact("delta-graph-analytics-plugin", "plugin"), assembly),
+    Test / fork                := true,
+    coverageFailOnMinimum      := false
+  )
+
+lazy val jiraPlugin = project
+  .in(file("delta/plugins/jira"))
+  .enablePlugins(BuildInfoPlugin)
+  .settings(shared, compilation, assertJavaVersion, discardModuleInfoAssemblySettings, coverage, release)
+  .dependsOn(
+    sdk        % "provided;test->test",
+    sdkTestkit % "test->compile;test->test"
+  )
+  .settings(
+    name                       := "delta-jira-plugin",
+    moduleName                 := "delta-jira-plugin",
+    libraryDependencies       ++= Seq(
+      googleAuthClient,
+      kamonAkkaHttp % Provided,
+      scalaTest     % Test
+    ),
+    buildInfoKeys              := Seq[BuildInfoKey](version),
+    buildInfoPackage           := "ch.epfl.bluebrain.nexus.delta.plugins.jira",
+    addCompilerPlugin(betterMonadicFor),
+    assembly / assemblyJarName := "jira.jar",
+    assembly / assemblyOption  := (assembly / assemblyOption).value.withIncludeScala(false),
+    assembly / test            := {},
+    addArtifact(Artifact("jira", "plugin"), assembly),
     Test / fork                := true,
     coverageFailOnMinimum      := false
   )
@@ -767,7 +799,8 @@ lazy val plugins = project
     archivePlugin,
     projectDeletionPlugin,
     testPlugin,
-    graphAnalyticsPlugin
+    graphAnalyticsPlugin,
+    jiraPlugin
   )
 
 lazy val delta = project
@@ -989,8 +1022,8 @@ lazy val compilation = {
 }
 
 lazy val coverage = Seq(
-  coverageMinimum       := 80,
-  coverageFailOnMinimum := true
+  coverageMinimumStmtTotal := 80,
+  coverageFailOnMinimum    := true
 )
 
 lazy val release = Seq(

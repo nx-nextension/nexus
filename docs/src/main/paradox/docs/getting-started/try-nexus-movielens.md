@@ -1,6 +1,7 @@
 # Try Nexus with the MovieLens Dataset
 
-In this tutorial, you will use the core features of the Nexus ecosystem through our sandbox. This requires minimal technical knowledge but the ability to install a Python library and run a jupyter notebook.
+In this tutorial, you will use the core features of the Nexus ecosystem through our sandbox. 
+This requires minimal technical knowledge but the ability to install a Python library and run a jupyter notebook.
 
 In the @ref:[first step](try-nexus-movielens.md#configuring-your-project-in-nexus-fusion), you'll learn:
 
@@ -25,13 +26,14 @@ Finally, check our @ref:[Learn More](try-nexus-movielens.md#learn-more) section 
 
 ## Configuring your Project in Nexus Fusion
 
-The @link:[Nexus Sandbox](https://sandbox.bluebrainnexus.io/){ open=new } is a deployment of Nexus Delta and Fusion 
-publicly available to anybody.
+The @link:[Nexus Sandbox](https://sandbox.bluebrainnexus.io/){ open=new } is a deployment of Nexus Delta and Fusion
+publicly available to anybody. Please note that you should not store any sensitive data in this environment. Also,
+we do not offer guaranty as to how long the data will be kept, this is only for learning and testing purposes.
 
-Nexus Fusion is the web interface that you will use in order to interact with Nexus Delta (the web services that manages 
+Nexus Fusion is the web interface that you will use in order to interact with Nexus Delta (the web services that manages
 the underlying knowledge graph).
 
-Please bear in mind that the data stored in the Nexus Sandbox is being purged at regular intervals. We recommend you do 
+Please bear in mind that the data stored in the Nexus Sandbox is being purged at regular intervals. We recommend you do
 not store any sensitive data in this environment since it is accessible to many other users.
 
 @@@ div { .center }
@@ -44,38 +46,17 @@ The first step is to login, by clicking in the upper right corner of the screen.
 ![1-sandbox-login](../assets/try-nexus-sandbox-log-in-github-realm.png)
 @@@
 
-Once logged in, you can navigate to the @ref:[Admin](../fusion/admin.md) interface through the left navigation sidebar, 
-in order to create the correct organizations and projects for your data to live.
-
-For this tutorial, you can use an existing organization called `nexustutorial` (by clicking on the so-named 
-organization), or you can create your own organization (by clicking the `Create Organization` button at the top).
+The Sandbox environment automatically provisions a project for you so you don't have to.
+Navigate to the Admin page and you will see the list of organisations in Nexus.
+A project is contained in an organisation. The organisation where your project is created depends on your identity provider.
+If you logged in with GitHub for example, your project was created under the `github-users` organisation.
 
 @@@ div { .center }
 ![2-sandbox-admin](../assets/try-nexus-sandbox-admin-logged-in.png)
 @@@
 
-In an organization, you will find the list of existing projects, and you can create your own. Projects (as well as 
-organizations) support permissions, which means that you cannot edit any organizations or projects.
-
-For this tutorial, you will need to create your own project.
-
-@@@ div { .center }
-![](../assets/try-nexus-sandbox-admin-organization.png)
-@@@
-
-Choose a name and a description for your project. For more information about advanced settings, see 
-@ref:[here](../fusion/admin.md#organizations-and-projects-indexes).
-
-@@@ div { .center }
-![](../assets/try-nexus-sandbox-admin-create-project-form.png)
-@@@
-
+Now open the `github-users` organisation and find your own project, which is named after your login.
 Once the project is created, you'll land on the project view. There is no resources at first. Wait for it.
-
-@@@ div { .center }
-![](../assets/try-nexus-sandbox-admin-project.png)
-@@@
-
 You will quickly see that the project has finished indexing (top right corner).
 
 @@@ div { .half .center }
@@ -88,38 +69,38 @@ Which means that the system has created default indices and storage for you.
 ![](../assets/try-nexus-sandbox-admin-project-indexed.png)
 @@@
 
-We're all set! We now have a project to host our ressources and datasets. Let's move on to the second part of this turotial.
+We're all set! We now have a project to host our resources and datasets. Let's move on to the second part of this tutorial.
 
 ## Working with Data in Nexus Forge
 
-We’ll load the @link:[MovieLens](http://files.grouplens.org/datasets/movielens/){ open=new } dataset into the created 
+We’ll load the @link:[MovieLens](http://files.grouplens.org/datasets/movielens/){ open=new } dataset into the created
 project within Nexus Delta using the python framework @link:[Nexus Forge](https://nexus-forge.readthedocs.io/en/latest/){ open=new }.
 
-A @link:[jupyter](https://jupyter.org/){ open=new } notebook is available for this part of the tutorial and can be spawn 
+A @link:[jupyter](https://jupyter.org/){ open=new } notebook is available for this part of the tutorial and can be spawn
 easily using Google Colab, binder, or locally:
 
 - @link:[Google Colab](https://colab.research.google.com/github/BlueBrain/nexus/blob/$git.branch$/docs/src/main/paradox/docs/getting-started/notebooks/building_a_kg.ipynb){ open=new }
 - @link:[binder](https://mybinder.org/v2/gh/BlueBrain/nexus/master?filepath=docs%2Fsrc%2Fmain%2Fparadox%2Fdocs%2Fgetting-started%2Fnotebooks%2Fbuilding_a_kg.ipynb){ open=new }
 - @link:[Github](https://github.com/BlueBrain/nexus/blob/$git.branch$/docs/src/main/paradox/docs/getting-started/notebooks/building_a_kg.ipynb){ open=new }
 
-For local execution, Nexus Forge can be installed using these 
-@link:[instructions](https://nexus-forge.readthedocs.io/en/latest/#installation){ open=new }. Make sure that the jupyter 
-notebook|lab is launched in the same virtual environment where Nexus Forge is installed. Alternatively, set up a 
+For local execution, Nexus Forge can be installed using these
+@link:[instructions](https://nexus-forge.readthedocs.io/en/latest/#installation){ open=new }. Make sure that the jupyter
+notebook|lab is launched in the same virtual environment where Nexus Forge is installed. Alternatively, set up a
 specialized @link:[kernel](https://ipython.readthedocs.io/en/stable/install/kernel_install.html){ open=new }.
 
-If you want to try some other examples of Nexus Forge, you can use these 
+If you want to try some other examples of Nexus Forge, you can use these
 @link:[notebooks](https://mybinder.org/v2/gh/BlueBrain/nexus-forge/master?filepath=examples%2Fnotebooks%2Fgetting-started){ open=new }.
 
 The next step is to use this query to create a Studio view in Nexus Fusion.
 
 ## Exploring the Graph in Nexus Fusion
 
-Login the Sandbox and navigate your your previously created project.
+Login the Sandbox and navigate your previously created project.
 
-Click on the `Manage Studios for this project` button on the top right corner of the project.
+Click on the `studio tab`.
 
 @@@ div { .center }
-![](../assets/try-nexus-sandbox-project-view.png)
+![](../assets/try-nexus-sandbox-project-studio-tab.png)
 @@@
 
 Studios are listed here. Click on `Create Studio`.
@@ -134,7 +115,7 @@ Give a name to your Studio and click `Save`.
 ![](../assets/try-nexus-sandbox-studio-form.png)
 @@@
 
-Here's your empty Studio. Click the button to `Add Workspace`.
+Here's your empty Studio. Click the `+` icon to Add Workspace.
 
 @@@ div { .center }
 ![](../assets/try-nexus-sandbox-studio-view.png)
@@ -146,13 +127,13 @@ Give a name to your Workspace and click `Save`.
 ![](../assets/try-nexus-sandbox-workspace-form.png)
 @@@
 
-You now have one Workspace configured. Click the button to `Add Dashboard`.
+You now have one Workspace configured. Click the `+` icon to Add Dashboard..
 
 @@@ div { .center }
-![](../assets/try-nexus-sandbox-studio-view-one-workspace.png)
+![](../assets/try-nexus-sandbox-studio-view-add-dashboard.png)
 @@@
 
-In order to query the graph in a Studio Dashboard, a small modification of the previous query is necessary. You can 
+In order to query the graph in a Studio Dashboard, a small modification of the previous query is necessary. You can
 find more information about it in the @ref:[Studio docs](../fusion/studio.md#sparql-query-requirements).
 
 ```sparql
@@ -180,14 +161,14 @@ And there are the results:
 ![](../assets/try-nexus-sandbox-studio-results.png)
 @@@
 
-Good job! You just finished this introductory course to Nexus using our Sandbox. You can now install Nexus locally or 
+Good job! You just finished this introductory course to Nexus using our Sandbox. You can now install Nexus locally or
 continue with the tutorials below.
 
 ## Learn More
 
 ### Querying knowledge graph using SPARQL
 
-This tutorial introduces the basics of SPARQL, a query language for querying RDF based knowledge graph. 
+This tutorial introduces the basics of SPARQL, a query language for querying RDF based knowledge graph.
 It also demonstrates how to query a Nexus SparqlView.
 
 You will build queries to explore and navigate a knowledge graph using SPARQL and Nexus.
@@ -208,7 +189,7 @@ This tutorial code is available on:
 
 The goal of this notebook is to learn how to connect to an Elasticsearch view and run queries against it.
 
-It is not a tutorial about the Elasticsearch DSL language for which many well written 
+It is not a tutorial about the Elasticsearch DSL language for which many well written
 @link:[learning resources are available](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html){ open=new }.
 
 You will build a simple python client to connect to a Nexus ElasticSearchView and query a knowledge graph using Elasticsearch DSL.
@@ -224,10 +205,10 @@ The tutorial code is available on:
 
 ### Linking data on the web
 
-In this tutorial, we demonstrate how to consume structured data published on the web according to the Linked data 
+In this tutorial, we demonstrate how to consume structured data published on the web according to the Linked data
 principles to extend and enrich a knowledge graph.
 
-You will build a simple pipeline to query entities managed within Blue Brain Nexus, connect them with entities 
+You will build a simple pipeline to query entities managed within Blue Brain Nexus, connect them with entities
 available on the web as structured data and extend and enrich their metadata.
 
 You will learn:
@@ -244,4 +225,3 @@ This tutorial code is available on:
 
 - @link:[Github](https://github.com/BlueBrain/nexus/blob/$git.branch$/docs/src/main/paradox/docs/getting-started/notebooks/Linking%20data%20on%20the%20web.ipynb){ open=new }
 - @link:[Google Colab](https://colab.research.google.com/github/BlueBrain/nexus/blob/$git.branch$/docs/src/main/paradox/docs/getting-started/notebooks/Linking%20data%20on%20the%20web.ipynb){ open=new }
-

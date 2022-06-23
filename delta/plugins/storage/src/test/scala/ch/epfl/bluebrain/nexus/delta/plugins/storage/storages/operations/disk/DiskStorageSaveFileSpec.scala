@@ -2,11 +2,10 @@ package ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.operations.disk
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.ContentTypes.`text/plain(UTF-8)`
-import akka.http.scaladsl.model.Uri
-import akka.stream.scaladsl.Source
+import akka.http.scaladsl.model.{HttpEntity, Uri}
 import akka.testkit.TestKit
-import akka.util.ByteString
 import ch.epfl.bluebrain.nexus.delta.kernel.Secret
+import ch.epfl.bluebrain.nexus.delta.plugins.storage.files.model.Digest.ComputedDigest
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.files.model.FileAttributes.FileAttributesOrigin.Client
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.files.model.{FileAttributes, FileDescription}
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.model.Storage.DiskStorage
@@ -14,10 +13,10 @@ import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.model.StorageValue
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.model.{AbsolutePath, DigestAlgorithm}
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.operations.AkkaSourceHelpers
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.operations.StorageFileRejection.SaveFileRejection.ResourceAlreadyExists
-import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.operations.remote.RemoteStorageDocker.digest
 import ch.epfl.bluebrain.nexus.delta.plugins.storage.storages.permissions.{read, write}
 import ch.epfl.bluebrain.nexus.delta.sdk.model.projects.ProjectRef
 import ch.epfl.bluebrain.nexus.delta.sdk.syntax._
+import ch.epfl.bluebrain.nexus.testkit.remotestorage.RemoteStorageDocker
 import ch.epfl.bluebrain.nexus.testkit.{EitherValuable, IOValues}
 import io.circe.Json
 import monix.execution.Scheduler
@@ -50,12 +49,12 @@ class DiskStorageSaveFileSpec
     val storage = DiskStorage(iri, project, value, Map.empty, Secret(Json.obj()))
     val uuid    = UUID.fromString("8049ba90-7cc6-4de5-93a1-802c04200dcc")
     val content = "file content"
-    val source  = Source(content.map(c => ByteString(c.toString)))
+    val entity  = HttpEntity(content)
 
     "save a file to a volume" in {
       val description = FileDescription(uuid, "myfile.txt", Some(`text/plain(UTF-8)`))
 
-      val attributes = storage.saveFile.apply(description, source).accepted
+      val attributes = storage.saveFile.apply(description, entity).accepted
 
       Files.readString(file.value) shouldEqual content
 
@@ -67,7 +66,7 @@ class DiskStorageSaveFileSpec
           "myfile.txt",
           Some(`text/plain(UTF-8)`),
           Files.size(file.value),
-          digest,
+          ComputedDigest(DigestAlgorithm.default, RemoteStorageDocker.Digest),
           Client
         )
 
@@ -77,7 +76,7 @@ class DiskStorageSaveFileSpec
 
     "fail attempting to save the same file again" in {
       val description = FileDescription(uuid, "myfile.txt", Some(`text/plain(UTF-8)`))
-      storage.saveFile.apply(description, source).rejectedWith[ResourceAlreadyExists]
+      storage.saveFile.apply(description, entity).rejectedWith[ResourceAlreadyExists]
     }
   }
 

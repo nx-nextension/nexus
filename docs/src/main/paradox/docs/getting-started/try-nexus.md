@@ -114,12 +114,12 @@ We run the latest version of Nexus publicly for education. You can also use the 
 
 ### 1.1. Using the Sandbox
 
-The @link:[Sandbox](https://sandbox.bluebrainnexus.io/web/){ open=new } is a deployment of Nexus for educational purposes.
+The @link:[Sandbox](https://sandbox.bluebrainnexus.io){ open=new } is a deployment of Nexus for educational purposes.
 
 Once on the Sandbox homepage, click on the top right corner on the login button.
 
 @@@ div { .center }
-![Sandbox Home](../assets/tutorial-sandbox-login.jpeg)
+![Sandbox Home](../assets/tutorial-sandbox-login.png)
 @@@
 
 We offer for the moment one identity providers (IdP):
@@ -128,13 +128,14 @@ We offer for the moment one identity providers (IdP):
 
 You will need an account on either one to be able to continue this tutorial.
 
-Click on the IdP of your choice and allow Nexus to have access. You are now logged in.
+Click on the Identity Provider of your choice and allow Nexus to have access. You are now logged in.
 
 Once logged in, you can get your token. The token is your secure, private, code that you will use in the rest of this tutorial to interact with Nexus.
 
-Additionally, the Sandbox environment automatically provisions a project for you so you don't have to. Navigate to the Admin page and you will see the list of organisations in Nexus. 
-A project is contained in an organisation. The organisation where your project is created depends on your identity provider. 
-If you logged in with GitHub for example, your project was create under the `github-users` organisation.
+Additionally, the Sandbox environment automatically provisions a project for you so you don't have to. 
+Navigate to the Admin page and you will see the list of organisations in Nexus.
+A project is contained in an organisation. The organisation where your project is created depends on your identity provider.
+If you logged in with GitHub for example, your project was created under the `github-users` organisation.
 
 @@@ div { .center }
 ![Sandbox Home](../assets/tutorial-sandbox-orgs.png)
@@ -212,18 +213,18 @@ In Nexus Forge, a mapper will map, transform, and format fields from one source 
 More specifically, let's imagine that we have a data source `x` that contains the following fields:
 
 ```json
-{ 
-    "id" : 123,
-    "givenName" : "john",
-    "familyName" : "doe",
-    "gender" : "male"
+{
+  "id": 123,
+  "givenName": "john",
+  "familyName": "doe",
+  "gender": "male"
 }
 ```
 
 We want to map these to the fields `id`, `name`, and `gender`. This is how it could look like:
 
 ```json
-{ 
+{
     "id" : forge.format("identifier", x.id)
     "name" : f"{x.givenName}/{x.familyName}",
     "sex" : forge.resolve(text=x.gender, scope="ontologies", target="terms")
@@ -262,17 +263,40 @@ jupyter notebook one_cell_minds.ipynb
 
 ### 2.7. Check Resources in the Sandbox
 
-Once you have registered resources through Nexus Forge (in the notebook), you can check that they are effectively present in Nexus. Navigate to the @link:[Sandbox](https://sandbox.bluebrainnexus.io/web/){ open=new } then to the correct organisation and project. In the project page, you will have the list of all resources present in your project (Default Query), including the ones that you just integrated. Depending on how you ran the notebook, you should find at least one NeuronMorphology and 
-one Trace resource.
+Once you have registered resources through Nexus Forge (in the notebook), you can check that they are effectively present in Nexus. You now have two options to do so.
+
+### 2.7.1 Using Search across all Projects
+
+Navigate to the Sandbox landing page, make sure you are logged in and click on Search in the centre panel. Alternatively, if you know how your dataset it called, you can type its name in the search bar in the top header.
 
 @@@ div { .center }
 ![Sandbox Home](../assets/tutorial-sandbox-project.png)
 @@@
 
-Click on a card to open the resource view. In the admin section of the view, you can see the actual JSON payload (explained in part 4) and additional metadata related to your dataset.
+You will now be presented with all the data that has been indexed across all projects you have the right to read from. In the case of this tutorial, you are likely to have access to your own project only. Please note that each instance of Nexus will have its own Search configuration, the BBP Sandbox has been configured to show NeuronMorphology and Trace datasets for the purpose of this tutorial.
 
 @@@ div { .center }
-![Sandbox Home](../assets/tutorial-sandbox-resource.png)
+![Sandbox Home](../assets/tutorial-sandbox-search.png)
+@@@
+
+Each of the rows of this table represent Knowledge Graph entities that we have decided to expose, including some specific metadata describing them (the columns). You can now click on any row in this table to open the corresponding dataset and look into its details.
+
+@@@ div { .center }
+![Sandbox Home](../assets/tutorial-sandbox-search-resource.png)
+@@@
+
+You can find more documentation on how to use Search @ref:[here](../fusion/search.md).
+
+## 2.7.2 By browsing your personal Project
+
+Navigate to the Sandbox then to the correct organisation and project. In the project page, you will have the list of all resources present in your project (Default Query), including the ones that you just integrated. Depending on how you ran the notebook, you should find at least one NeuronMorphology and one Trace resource.
+
+@@@ div { .center }
+![Sandbox Home](../assets/tutorial-sandbox-project.png)
+@@@
+
+@@@ div { .center }
+![Sandbox Home](../assets/tutorial-resource-view-with-plugins.png)
 @@@
 
 ## Step 3: Download and Register Data from Multiple Sources
@@ -313,7 +337,7 @@ jupyter notebook dataset_from_different_sources.ipynb
 
 ### 3.3. Check Resources in the Sandbox
 
-Go back to @ref:[section 2.7](try-nexus.md#2-7-check-resources-in-the-sandbox) to learn how to check resources in the Sandbox.
+Go back to @ref:[section 2.7](try-nexus.md#2-7-check-resources-in-the-sandbox)to learn how to check resources in the Sandbox.
 
 ## Step 4: Organize and Visualize Cells in Nexus Fusion
 
@@ -329,10 +353,7 @@ Let us take a JSON-LD example payload:
 
 ```json
 {
-  "@type": [
-    "http://schema.org/Dataset",
-    "http://www.w3.org/ns/prov#Entity"
-  ],
+  "@type": ["http://schema.org/Dataset", "http://www.w3.org/ns/prov#Entity"],
   "http://schema.org/description": "My first dataset",
   "http://schema.org/name": "Dataset",
   "http://schema.org/distribution": [
@@ -370,8 +391,8 @@ WHERE {
 
 This would result in the following table:
 
-| name | description |
-|------|-------------|
+| name    | description      |
+| ------- | ---------------- |
 | Dataset | My first dataset |
 
 Let's decompose this query. The `SELECT` statement lists all the fields (i.e. variables) that we want to display. The `WHERE` clause shows how to get to these fields: which graph paths (or traversals) do we need to do to get to that field. In the `WHERE` clause, semi-colons `;` indicate that we are still talking about the same `Subject` but with different `predicate`s. A full stop `.` indicates that the statement is finished, i.e. that we have finished talking about a specific `Subject`. A `WHERE` clause can have multiple statements. If an `Object` in the statement has a value, it has to match, otherwise it won't give any results. If the `Object` is prefixed by a question mark `?` it becomes a variable. Variables can have any names.
@@ -402,8 +423,8 @@ WHERE {
 
 This would result in the following table:
 
-| name | description | contentURL |
-|------|-------------|------------|
+| name    | description      | contentURL                                                |
+| ------- | ---------------- | --------------------------------------------------------- |
 | Dataset | My first dataset | <http://example.com/cfb62f82-6d54-4e35-ab5e-3a3a164a04fb> |
 
 If there were more resources that matched the same graph patterns, the query would have returned them as well.
@@ -417,10 +438,7 @@ The first thing to notice is that if I want to reference my dataset, I don't hav
 ```json
 {
   "@id": "http://example.com/my_gradient_dataset",
-  "@type": [
-    "http://schema.org/Dataset",
-    "http://www.w3.org/ns/prov#Entity"
-  ],
+  "@type": ["http://schema.org/Dataset", "http://www.w3.org/ns/prov#Entity"],
   "http://schema.org/description": "My first dataset",
   "http://schema.org/name": "Dataset",
   "http://schema.org/distribution": [
@@ -441,14 +459,11 @@ Can we now make the JSON-LD less verbose and easier to read? Yes, by defining a 
 
 ```json
 {
-  "@context" : {
-    "@vocab" : "http://schema.org/"
+  "@context": {
+    "@vocab": "http://schema.org/"
   },
-  "@id" : "http://example.com/my_gradient_dataset",
-  "@type": [
-    "Dataset",
-    "http://www.w3.org/ns/prov#Entity"
-  ],
+  "@id": "http://example.com/my_gradient_dataset",
+  "@type": ["Dataset", "http://www.w3.org/ns/prov#Entity"],
   "description": "My first dataset",
   "name": "Dataset",
   "distribution": [
@@ -463,21 +478,18 @@ Can we now make the JSON-LD less verbose and easier to read? Yes, by defining a 
 }
 ```
 
-If you copy the above snippet to the @link:[JSON-LD Playground](https://json-ld.org/playground/){ open=new } and look at the expanded form, you will notice that the properties all expand with  the `http://schema.org/` prefix. Don't hesitate to do the same for the ones below. Play a little with the payload to see what happens to the expanded form.
+If you copy the above snippet to the @link:[JSON-LD Playground](https://json-ld.org/playground/){ open=new } and look at the expanded form, you will notice that the properties all expand with the `http://schema.org/` prefix. Don't hesitate to do the same for the ones below. Play a little with the payload to see what happens to the expanded form.
 
 But what if we want to shorten specific values? We can add them in the context as well.
 
 ```json
 {
-  "@context" : {
-    "@vocab" : "http://schema.org/",
-    "Entity" : "http://www.w3.org/ns/prov#Entity"
+  "@context": {
+    "@vocab": "http://schema.org/",
+    "Entity": "http://www.w3.org/ns/prov#Entity"
   },
-  "@id" : "http://example.com/my_gradient_dataset",
-  "@type": [
-    "Dataset",
-    "Entity"
-  ],
+  "@id": "http://example.com/my_gradient_dataset",
+  "@type": ["Dataset", "Entity"],
   "description": "My first dataset",
   "name": "Dataset",
   "distribution": [
@@ -496,16 +508,13 @@ Finally, the last improvement would be to shorten our IDs. For this we can use a
 
 ```json
 {
-  "@context" : {
-    "@base" : "http://example.com/",
-    "@vocab" : "http://schema.org/",
-    "Entity" : "http://www.w3.org/ns/prov#Entity"
+  "@context": {
+    "@base": "http://example.com/",
+    "@vocab": "http://schema.org/",
+    "Entity": "http://www.w3.org/ns/prov#Entity"
   },
-  "@id" : "my_gradient_dataset",
-  "@type": [
-    "Dataset",
-    "Entity"
-  ],
+  "@id": "my_gradient_dataset",
+  "@type": ["Dataset", "Entity"],
   "description": "My first dataset",
   "name": "Dataset",
   "distribution": [
@@ -555,7 +564,7 @@ You can learn more about SPARQL in the @link:[official documentation](https://ww
 
 As you saw in the example above, we can use SPARQL to query the cells in our Nexus project.
 
-Let's start by accessing your Nexus instance or the @link:[Sandbox](https://sandbox.bluebrainnexus.io/web/){ open=new }. Go to Admin page (from the left hand side menu), and navigate to your organization and project.
+Let's start by accessing your Nexus instance or the @link:[Sandbox](https://sandbox.bluebrainnexus.io){ open=new }. Go to Admin page (from the left hand side menu), and navigate to your organization and project.
 
 > In the Sandbox, the organization corresponds to the identity provider used, and the project to your username. For example, if you used GitHub, the organization will be `github-users` and your project will be your GitHub username.
 
@@ -577,7 +586,7 @@ Depending on the resource data type, you might see one or more "plugins". Plugin
 ![Morphology Plugin](../assets/tutorial-morphology-plugin.png)
 @@@
 
-More importantly, you will find the Admin plugin at the bottom of the view. Expand it and you will see the actual resource payload stored by Nexus, and navigate the graph through links, or visualize the surrounding graph in the graph tab.
+More importantly, you will find the Advanced view plugin at the bottom of the view. Expand it and you will see the actual resource payload stored by Nexus, and navigate the graph through links, or visualize the surrounding graph in the graph tab.
 
 @@@ div { .center }
 ![Admin Plugin](../assets/tutorial-admin-plugin.png)
@@ -683,7 +692,7 @@ Here's an example of the JSON payload of the neuron morphology resource previous
 
 ### 4.3. Query Neuroscience Data
 
-Going back to the project view, you will notice a link to the `SPARQL Query Editor`. Let's click on it and start experimenting.
+Going back to the project view, you will notice a tab named 'Query'. Let's click on it and start experimenting. On clicking on the 'Query tab', you will see a sprql query editor.
 
 @@@ div { .center }
 ![Sandbox Home](../assets/tutorial-sandbox-project.png)
@@ -710,9 +719,9 @@ WHERE {
         nsg:brainLocation / nsg:brainRegion / rdfs:label    ?brainRegion ;
         nsg:brainLocation / nsg:layer                       ?brainRegionLayer ;
         nsg:subject / nsg:species / rdfs:label              ?subjectSpecies ;
-        nsg:subject / nsg:strain / rdfs:label               ?subjectStrain.    
-} 
-LIMIT 1000     
+        nsg:subject / nsg:strain / rdfs:label               ?subjectStrain.
+}
+LIMIT 1000
 ```
 
 We list a couple more prefixes in this query. Even though we don't use most of them, they are common ones.
@@ -725,13 +734,13 @@ Finally, you will notice the `self`. This is an internal Nexus property (in addi
 
 Here's the result of the above query:
 
-| self | name | brainRegion | brainRegionLayer | subjectSpecies | subjectStrain | registered_by | registeredAt |
-|------|------|-------------|------------------|----------------|---------------|---------------|--------------|
-<https://sandbox.bluebrainnexus.io/v1/resources/github-users/adulbrich/_/...> | Cux2-CreERT2;Ai14-205530.03.02.01 | VISp5 | 5 | Mus musculus | Cux2-CreERT2 | <https://sandbox.bluebrainnexus.io/v1/realms/github/users/adulbrich> | 2021-07-27T18:58:45.238Z
+| self                                                                          | name                              | brainRegion | brainRegionLayer | subjectSpecies | subjectStrain | registered_by                                                        | registeredAt             |
+| ----------------------------------------------------------------------------- | --------------------------------- | ----------- | ---------------- | -------------- | ------------- | -------------------------------------------------------------------- | ------------------------ |
+| <https://sandbox.bluebrainnexus.io/v1/resources/github-users/adulbrich/_/...> | Cux2-CreERT2;Ai14-205530.03.02.01 | VISp5       | 5                | Mus musculus   | Cux2-CreERT2  | <https://sandbox.bluebrainnexus.io/v1/realms/github/users/adulbrich> | 2021-07-27T18:58:45.238Z |
 
 ### 4.4. Create a Studio
 
-Go back to your project view in the Admin section of the Sandbox. In the top right corner, click on "Manage Studios for this Project".
+Go back to your project view in the Admin section of the Sandbox. Click on the 'Studios' tab. It will open in a new window.
 
 @@@ div { .center }
 ![Sandbox Home](../assets/tutorial-sandbox-project.png)
@@ -745,17 +754,13 @@ You will land on:
 
 On this page you can create a new studio. A Studio is a dedicated web page in your project that you can organise into pages (workspaces, as horizontal tabs at the top) and sections (dashboards, as vertical tabs on the left side) and list your data in a logical way. The tables are powered by SPARQL queries and the data present in your project.
 
-@@@ div { .center }
-![Sandbox Home](../assets/tutorial-sandbox-studio-empty.png)
-@@@
-
-Start by creating a Workspace.
+Start by creating a Workspace. To create a workspace, click the Workspace button and in the menu that appears click Add Workspace. You will be presented with a dialog requesting the label of the workspace and optionally a description. Enter a label of your choosing and click Save.
 
 @@@ div { .center }
 ![Sandbox Home](../assets/tutorial-sandbox-studio-one-workspace-no-dashboard.png)
 @@@
 
-Then create a Dashboard, using the SPARQL query above.
+Next, create a Dashboard. Click the Dashboard button and choose Add from the pop-up menu. In the Dashboard creation dialog, specify the default Sparql Index view and specify the SPARQL query above. The 'Preview' button will list the columns to be returned by the query and support specifying options on the columns such as enabling searching or sorting.
 
 @@@ div { .center }
 ![Sandbox Home](../assets/tutorial-sandbox-studio-one-workspace-one-dashboard.png)
@@ -763,17 +768,13 @@ Then create a Dashboard, using the SPARQL query above.
 
 Because we are using the self, clicking on a row of the newly created table will open the resource view.
 
-It's your turn now to add a dashboard to list your Neuron Electrophysiology data. Create the dashboard and modify the SPARQL query above. The results should look like this:
-
-@@@ div { .center }
-![Studio Traces](../assets/tutorial-sandbox-studio-one-workspace-two-dashboards.png)
-@@@
+It's your turn now to add a dashboard to list your Neuron Electrophysiology data. Create the dashboard and modify the SPARQL query above.
 
 Congratulations! You've created your very first studio, which completes this tutorial step.
 
 ## Step 5: Finding Similar Datasets using Recommendations
 
-In this section, you will first learn about recommendation systems, then reuse the data you have integrated in Nexus in previous steps and build a recommendation system to find datasets that are similar to a chosen neuron morphology or electrophysiology recording. 
+In this section, you will first learn about recommendation systems, then reuse the data you have integrated in Nexus in previous steps and build a recommendation system to find datasets that are similar to a chosen neuron morphology or electrophysiology recording.
 
 ### 5.1. Introduction to Recommendations
 
@@ -784,8 +785,8 @@ In a similar way, there is a need for recommendation systems that help us to exp
 One of the most common techniques for building a recommendation system is based on entity embedding that represents each entity with a numerical vector. Given a starting entity (a neuron morphology dataset), the task of finding similar entities can be reduced to a simple search for the nearest neighbors in the vector space of our embedding.
 
 One of the first modern approaches to entity embedding reflecting their semantic similarity was developed by the Natural Language Processing (NLP) community and is called @link:[word2vec](https://arxiv.org/abs/1301.3781). To generate vector representations of words, it trains a neural network on a large text corpus from which word contexts are extracted. The resulting vector representation is able to capture the semantic similarity between different words.
- 
-Similarity to word2vec, @link:[node2vec](https://dl.acm.org/doi/abs/10.1145/2939672.2939754) builds vector representations of graph nodes. To generate 'context' for different nodes, this approach performs random walks and explores the neighborhood of a given node. 
+
+Similarity to word2vec, @link:[node2vec](https://dl.acm.org/doi/abs/10.1145/2939672.2939754) builds vector representations of graph nodes. To generate 'context' for different nodes, this approach performs random walks and explores the neighborhood of a given node.
 
 Finally, another derivative of word2vec, adapted specifically for building node embedding on Knowledge Graphs, is called @link:[rdf2vec](https://madoc.bib.uni-mannheim.de/41307/1/Ristoski_RDF2Vec.pdf).
 
